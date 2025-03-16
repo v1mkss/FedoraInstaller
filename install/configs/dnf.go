@@ -10,20 +10,20 @@ import (
 )
 
 func InstallDnfConfig() error {
-	// Кольори
+	// Colors
 	green := ansi.ColorCode("green")
 	blue := ansi.ColorCode("blue")
 	yellow := ansi.ColorCode("yellow")
 	red := ansi.ColorCode("red")
 	reset := ansi.ColorCode("reset")
 
-	// Читаємо ASCII-арт з файлу
-	asciiArtBytes, err := os.ReadFile("ui/ansi/dnf.txt") //  Правильний шлях!
+	// Read ASCII art from file
+	asciiArtBytes, err := os.ReadFile("ui/ansi/dnf.txt") // Correct path!
 	if err != nil {
 		fmt.Printf("%sError reading DNF ASCII art file: %v%s\n", red, err, reset)
-		//  Можна або os.Exit(1), або продовжити без арту
+		// You can either os.Exit(1) or continue without art
 	} else {
-		fmt.Print(blue) // Синій колір
+		fmt.Print(blue) // Blue color
 		fmt.Println(string(asciiArtBytes))
 		fmt.Println(reset)
 	}
@@ -43,7 +43,7 @@ func InstallDnfConfig() error {
 		}
 	}
 
-	configFilePath := "assets/configs/dnf/dnf.conf" //  Правильний шлях!
+	configFilePath := "assets/configs/dnf/dnf.conf" // Correct path!
 	if _, err := os.Stat(configFilePath); os.IsNotExist(err) {
 		fmt.Printf("%sERROR: Configuration file not found: %s%s\n", red, configFilePath, reset)
 		os.Exit(1)

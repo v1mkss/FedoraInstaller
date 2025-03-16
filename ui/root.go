@@ -17,6 +17,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// ClearScreen clears the terminal screen. Platform agnostic, but relies on the "clear" command.
 func ClearScreen() {
 	var cmd *exec.Cmd
 
@@ -26,28 +27,31 @@ func ClearScreen() {
 	cmd.Run()
 }
 
+// elevatePrivileges attempts to elevate the program's privileges using sudo.
+// It only works on Linux and exits the program if elevation fails.
 func elevatePrivileges() {
 	if runtime.GOOS != "linux" {
-		return
+		return // No need to elevate privileges on non-Linux systems
 	}
 	if os.Geteuid() != 0 {
 		fmt.Println(ansi.Color("Elevating Privilages...", "blue"))
-		cmd := exec.Command("sudo", os.Args...)
-		cmd.Stdin = os.Stdin
-		cmd.Stdout = os.Stdout
-		cmd.Stderr = os.Stderr
-		err := cmd.Run()
+		cmd := exec.Command("sudo", os.Args...) // Execute the program again with sudo
+		cmd.Stdin = os.Stdin                    // Pass standard input
+		cmd.Stdout = os.Stdout                  // Pass standard output
+		cmd.Stderr = os.Stderr                  // Pass standard error
+		err := cmd.Run()                        // Run the command
 		if err != nil {
 			fmt.Println(ansi.Color(fmt.Sprintf("Error elevating privileges: %v", err), "red"))
-			os.Exit(1)
+			os.Exit(1) // Exit if we can't get root
 		}
-		os.Exit(0)
+		os.Exit(0) // Exit the current process after elevation; sudo will restart it
 	}
 }
 
+// PrintWelcomeScreen displays the welcome screen, including ASCII art and initial messages.
 func PrintWelcomeScreen() {
-	elevatePrivileges()
-	ClearScreen()
+	elevatePrivileges() // Try to get root
+	ClearScreen()       // Clear any previous output
 
 	asciiArtBytes, err := os.ReadFile("ui/ansi/install.txt")
 	if err != nil {
@@ -58,12 +62,12 @@ func PrintWelcomeScreen() {
 	fmt.Println(ansi.Color(asciiArt, "green+b"))
 	lines := strings.Count(asciiArt, "\n")
 
-	time.Sleep(2 * time.Second)
-	fmt.Print("\033[1B")
-	fmt.Print("\033[J")
+	time.Sleep(2 * time.Second) // Give the user a moment to admire the art
+	fmt.Print("\033[1B")        // Move the cursor down one line
+	fmt.Print("\033[J")         // Clear the screen from the cursor down
 
 	if !CheckIfFedora() {
-		os.Exit(1)
+		os.Exit(1) // If not fedora, then we are done here
 	}
 
 	fmt.Println(ansi.Color("Welcome to the simple Fedora CLI installer!", "cyan+b"))
@@ -82,6 +86,8 @@ var rootCmd = &cobra.Command{
 	},
 }
 
+// Execute adds all child commands to the root command and sets flags appropriately.
+// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
@@ -89,8 +95,9 @@ func Execute() {
 	}
 }
 
+// showMainMenu displays the main menu and handles user input.
 func showMainMenu() {
-	for {
+	for { // Loop until the user exits
 		fmt.Println(ansi.Color("\nMain Menu:", "yellow+b"))
 		fmt.Println(ansi.Color("1. Install System", "green"))
 		fmt.Println(ansi.Color("2. Options", "green"))
@@ -105,34 +112,36 @@ func showMainMenu() {
 		}
 		if err := scanner.Err(); err != nil {
 			fmt.Println(ansi.Color("Error reading input:", "red"))
-			continue
+			continue // Back to the main menu loop
 		}
 
 		choice, err := strconv.Atoi(choiceStr)
 		if err != nil {
 			fmt.Println(ansi.Color("Invalid input. Please enter a number (1-3).", "red"))
 			time.Sleep(1 * time.Second)
-			continue
+			continue // Back to the main menu loop
 		}
 
 		switch choice {
 		case 1:
 			fmt.Println(ansi.Color("Installing System...", "blue"))
 			install.RunSystemUpdate()
-			return
+			return // Exit the main menu after starting the installation
 		case 2:
-			showOptionsMenu()
+			showOptionsMenu() // Go to the options menu
 		case 3:
 			fmt.Println(ansi.Color("Exiting...", "red"))
-			os.Exit(0)
+			os.Exit(0) // Exit the program
 		default:
 			fmt.Println(ansi.Color("Invalid choice. Please enter 1, 2 or 3.", "red"))
 			time.Sleep(1 * time.Second)
 		}
 	}
 }
+
+// showOptionsMenu displays the options menu and handles user input.
 func showOptionsMenu() {
-	for {
+	for { // Loop until the user goes back to the main menu
 		fmt.Println(ansi.Color("\nOptions Menu:", "yellow+b"))
 		fmt.Println(ansi.Color("1. Install DNF Config", "green"))
 		fmt.Println(ansi.Color("2. Install Repositories", "green"))
@@ -149,14 +158,14 @@ func showOptionsMenu() {
 		}
 		if err := scanner.Err(); err != nil {
 			fmt.Println(ansi.Color("Error reading input:", "red"))
-			continue
+			continue // Back to the options menu loop
 		}
 
 		choice, err := strconv.Atoi(choiceStr)
 		if err != nil {
 			fmt.Println(ansi.Color("Invalid input. Please enter a number (1-5).", "red"))
 			time.Sleep(1 * time.Second)
-			continue
+			continue // Back to the options menu loop
 		}
 
 		switch choice {
@@ -173,7 +182,7 @@ func showOptionsMenu() {
 			fmt.Println(ansi.Color("Installing Starship config...", "blue"))
 			configs.InstallStarshipConfig()
 		case 5:
-			return
+			return // Back to the main menu
 		default:
 			fmt.Println(ansi.Color("Invalid choice. Please enter 1, 2, 3, 4 or 5.", "red"))
 			time.Sleep(1 * time.Second)
