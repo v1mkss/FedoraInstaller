@@ -1,21 +1,38 @@
+# Basic utilities
 cascadia-code-fonts
 curl
-dnf-plugins-core
-fish
-git
-man-db
-netcat
-openssh-clients
-openssh-server
-starship
 tar
 unzip
 wget2-wget
 zip
 openssl
 
-gcc
-llvm
+# Package management
+dnf-plugins-core
 
+# Shell
+fish
+
+# Version control
+git
+
+# Documentation
+man-db
+
+# Networking
+netcat
+openssh-clients
+openssh-server
+
+# Prompt
+starship
+
+# System tools
 firewall-config
 firewalld
+
+# Compilers and build tools
+gcc
+llvm
+cmake
+make

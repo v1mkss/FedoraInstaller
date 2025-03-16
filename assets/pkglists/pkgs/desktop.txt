@@ -1,19 +1,27 @@
+# Core KDE Plasma packages
 ark
 bluedevil
 dolphin
-flatpak
-flatpak-kcm
 ghostty
 gwenview
-kde-gtk-config
 kinfocenter
 kscreen
 kwallet
-plasma-browser-integration
 plasma-desktop
-plasma-firewall
-plasma-nm
 plasma-systemmonitor
 sddm
 sddm-breeze
+
+# KDE Plasma Configuration
+kde-gtk-config
+plasma-browser-integration
+plasma-firewall
+plasma-nm
 sssd-kcm
+
+# Flatpak integration
+flatpak
+flatpak-kcm
+
+# Additional KDE utilities
+kio-admin

@@ -7,7 +7,6 @@ import (
 	"os/exec"
 	"runtime"
 	"strconv"
-	"strings"
 	"time"
 
 	"FedoraInstaller/install"
@@ -53,27 +52,13 @@ func PrintWelcomeScreen() {
 	elevatePrivileges() // Try to get root
 	ClearScreen()       // Clear any previous output
 
-	asciiArtBytes, err := os.ReadFile("ui/ansi/install.txt")
-	if err != nil {
-		fmt.Println("Error reading ASCII art file:", err)
-		return
-	}
-	asciiArt := string(asciiArtBytes)
-	fmt.Println(ansi.Color(asciiArt, "green+b"))
-	lines := strings.Count(asciiArt, "\n")
-
-	time.Sleep(2 * time.Second) // Give the user a moment to admire the art
-	fmt.Print("\033[1B")        // Move the cursor down one line
-	fmt.Print("\033[J")         // Clear the screen from the cursor down
-
 	if !CheckIfFedora() {
 		os.Exit(1) // If not fedora, then we are done here
 	}
 
 	fmt.Println(ansi.Color("Welcome to the simple Fedora CLI installer!", "cyan+b"))
 	fmt.Println(ansi.Color("This tool will guide you through a basic Fedora installation.", "cyan"))
-	fmt.Print("\033[1A")
-	fmt.Printf("\033[%dB", lines)
+	fmt.Println()
 }
 
 var rootCmd = &cobra.Command{
@@ -86,8 +71,6 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
@@ -103,7 +86,7 @@ func showMainMenu() {
 		fmt.Println(ansi.Color("2. Options", "green"))
 
 		fmt.Println(ansi.Color("\n3. Exit", "red"))
-		fmt.Print(ansi.Color("Enter your choice (1-3): ", "yellow"))
+		fmt.Print(ansi.Color("Enter your choice (1-3) or 'q' to quit: ", "yellow"))
 
 		var choiceStr string
 		scanner := bufio.NewScanner(os.Stdin)
@@ -115,9 +98,14 @@ func showMainMenu() {
 			continue // Back to the main menu loop
 		}
 
+		if choiceStr == "q" {
+			fmt.Println(ansi.Color("Exiting...", "red"))
+			os.Exit(0)
+		}
+
 		choice, err := strconv.Atoi(choiceStr)
 		if err != nil {
-			fmt.Println(ansi.Color("Invalid input. Please enter a number (1-3).", "red"))
+			fmt.Println(ansi.Color("Invalid input. Please enter a number (1-3) or 'q'.", "red"))
 			time.Sleep(1 * time.Second)
 			continue // Back to the main menu loop
 		}
@@ -148,8 +136,8 @@ func showOptionsMenu() {
 		fmt.Println(ansi.Color("3. Install Fish", "green"))
 		fmt.Println(ansi.Color("4. Install Starship", "green"))
 
-		fmt.Println(ansi.Color("\n5. Back to Main Menu", "yellow"))
-		fmt.Print(ansi.Color("Enter your choice (1-5): ", "yellow"))
+		fmt.Println(ansi.Color("\n5. Back to Main Menu", "red"))
+		fmt.Print(ansi.Color("Enter your choice (1-5) or 'q' to quit: ", "yellow"))
 
 		var choiceStr string
 		scanner := bufio.NewScanner(os.Stdin)
@@ -161,9 +149,14 @@ func showOptionsMenu() {
 			continue // Back to the options menu loop
 		}
 
+		if choiceStr == "q" {
+			fmt.Println(ansi.Color("Exiting...", "red"))
+			os.Exit(0)
+		}
+
 		choice, err := strconv.Atoi(choiceStr)
 		if err != nil {
-			fmt.Println(ansi.Color("Invalid input. Please enter a number (1-5).", "red"))
+			fmt.Println(ansi.Color("Invalid input. Please enter a number (1-5) or 'q'.", "red"))
 			time.Sleep(1 * time.Second)
 			continue // Back to the options menu loop
 		}

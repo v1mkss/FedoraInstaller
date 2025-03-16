@@ -32,6 +32,7 @@ default-fonts-other-mono
 default-fonts-other-sans
 default-fonts-other-serif
 dhcp-client
+diffstat
 discord
 dnf-plugins-core
 dnf5
@@ -39,6 +40,7 @@ dnf5-plugins
 dnsmasq
 dolphin
 dosfstools
+doxygen
 dracut-config-rescue
 e2fsprogs
 easyeffects
@@ -50,12 +52,14 @@ fish
 flatpak
 flatpak-kcm
 fuse
-fwupd
+fuse-libsfwupd
 gcc
 gcc-c++
+gettext
 ghostty
 git
 glibc
+golang
 golang-github-jesseduffield-lazygit
 google-noto-sans-cjk-fonts
 grub2-efi-x64
@@ -76,6 +80,7 @@ kbd
 kde-gtk-config
 kernel
 kinfocenter
+kio-admin
 kscreen
 kwallet
 kwalletmanager5
@@ -96,7 +101,10 @@ openssh-clients
 openssh-server
 openssl
 openssl-devel
+papirus-icon-theme
 parted
+patch
+patchutils
 pipewire-alsa
 pipewire-gstreamer
 pipewire-pulseaudio
@@ -127,9 +135,11 @@ ssd-common
 sssd-kcm
 starship
 steam
+subversion
 sudo
 systemd
 systemd-resolved
+systemtap
 tar
 telegram-desktop
 temurin-21-jdk
