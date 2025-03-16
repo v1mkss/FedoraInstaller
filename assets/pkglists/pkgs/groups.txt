@@ -1,0 +1,4 @@
+@core
+@fonts
+@multimedia
+@networkmanager-submodules

@@ -1,0 +1,116 @@
+# Базові налаштування
+format = """
+$directory\
+$git_branch\
+$git_status\
+$java\
+$rust\
+$nodejs\
+$bun\
+$status
+$character"""
+
+# Прибираємо порожній рядок на початку
+add_newline = false
+
+# Директорія
+[directory]
+style = "blue"
+truncation_length = 3
+truncate_to_repo = true
+read_only = " 󰌾"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+# Git
+[git_branch]
+format = "[$branch](yellow) "
+symbol = ""
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]](red) )'
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+modified = "!${count}"
+staged = "+${count}"
+untracked = "?${count}"
+
+# Мови програмування
+[java]
+format = '[󰬷 ${version}](yellow) '
+detect_extensions = ["java", "jar", "gradle", "maven"]
+version_format = "v${raw}"
+
+[rust]
+format = '[󱘗 ${version}](red) '
+detect_extensions = ["rs", "toml"]
+version_format = "v${raw}"
+
+[nodejs]
+format = '[󰎙 ${version}](green) '
+detect_extensions = ["js", "jsx", "ts", "tsx"]
+version_format = "v${raw}"
+
+[bun]
+format = '[🥟 ${version}](purple) '
+detect_extensions = ["js", "jsx", "ts", "tsx"]
+version_format = "v${raw}"
+
+# Статус виконання команди
+[status]
+disabled = false
+format = '[$status](red) '
+
+# Символ промпту
+[character]
+success_symbol = "[>](blue)"
+error_symbol = "[>](red)"
+
+# Вимкнені модулі
+[battery]
+disabled = true
+
+[cmd_duration]
+disabled = true
+
+[memory_usage]
+disabled = true
+
+[package]
+disabled = true
+
+[shell]
+disabled = true
+
+[time]
+disabled = true
+
+[username]
+disabled = true
+
+[hostname]
+disabled = true
+
+# Додаткові налаштування
+[aws]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[python]
+disabled = true
+
+[ruby]
+disabled = true
+
+[php]
+disabled = true
+
+[golang]
+disabled = true
