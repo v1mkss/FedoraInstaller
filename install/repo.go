@@ -20,9 +20,9 @@ func InstallRepositories() error {
 	fmt.Printf("%s====================================%s\n", yellow, reset)
 
 	//  Executing the install-repos.sh script
-	cmd := exec.Command("bash", "assets/pkglists/repos/install-repos.sh") // Correct path
-	cmd.Stdout = os.Stdout                                                //  Redirecting output
-	cmd.Stderr = os.Stderr                                                //  Redirecting errors
+	cmd := exec.Command("bash", "assets/pkglists/repos/install-repos.sh")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
 	err := cmd.Run()
 	if err != nil {
 		fmt.Printf("%sERROR: Failed to install repositories: %v%s\n", red, err, reset)

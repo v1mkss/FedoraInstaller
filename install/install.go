@@ -19,7 +19,7 @@ func RunSystemUpdate() error {
 	fmt.Printf("%s====================================%s\n", yellow, reset)
 
 	// Running script 00-system-update.sh
-	cmd := exec.Command("bash", "assets/scripts/00-system-update.sh") // Correct path!
+	cmd := exec.Command("bash", "assets/scripts/00-system-update.sh")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()

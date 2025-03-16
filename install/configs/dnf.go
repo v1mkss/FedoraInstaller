@@ -18,7 +18,7 @@ func InstallDnfConfig() error {
 	fmt.Printf("%sInstalling DNF Configuration...%s\n", green, reset)
 	fmt.Printf("%s====================================%s\n", yellow, reset)
 
-	// Запускаємо скрипт install.sh
+	// Running install.sh script
 	cmd := exec.Command("bash", "assets/configs/dnf/install.sh")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
