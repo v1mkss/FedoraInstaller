@@ -56,4 +56,4 @@ Contributions welcome! Open issue or pull request.
 
 ## License
 
-MIT License.
+[MIT License.](./LICENSE)
