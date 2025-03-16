@@ -49,7 +49,7 @@ func elevatePrivileges() {
 	}
 }
 
-// PrintWelcomeScreen displays the welcome screen, including ASCII art and initial messages.
+// PrintWelcomeScreen displays the welcome screen
 func PrintWelcomeScreen() {
 	elevatePrivileges() // Try to get root
 	ClearScreen()       // Clear any previous output
