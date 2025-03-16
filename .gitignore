@@ -1,4 +1,6 @@
 FedoraInstaller
+*.log
+*.logs
 
 # Binaries for programs and plugins
 *.exe
