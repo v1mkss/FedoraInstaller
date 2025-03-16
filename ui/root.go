@@ -20,11 +20,7 @@ import (
 func ClearScreen() {
 	var cmd *exec.Cmd
 
-	if runtime.GOOS == "windows" {
-		cmd = exec.Command("cmd", "/c", "cls")
-	} else {
-		cmd = exec.Command("clear")
-	}
+	cmd = exec.Command("clear")
 
 	cmd.Stdout = os.Stdout
 	cmd.Run()
@@ -77,7 +73,7 @@ func PrintWelcomeScreen() {
 }
 
 var rootCmd = &cobra.Command{
-	Use:   "fedorainstaller",
+	Use:   "FedoraInstaller",
 	Short: "Simple Fedora CLI installer",
 	Long:  `This tool will guide you through a basic Fedora installation.`,
 	Run: func(cmd *cobra.Command, args []string) {

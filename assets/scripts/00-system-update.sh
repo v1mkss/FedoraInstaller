@@ -45,10 +45,15 @@ log "Installing packages..."
 sudo sh ./pkglists/install-pkgs.sh
 check_error "Failed to install packages"
 
-# 5. Installing Configurations
+# 5. Installing Configurations (conditional theme setup)
 log "Installing configurations..."
-sudo sh ./configs/install.sh
-check_error "Failed to install configurations"
+if command -v plasma-desktop &> /dev/null; then
+    log "Plasma desktop detected. Running theme setup..."
+    sudo sh ./configs/install.sh
+    check_error "Failed to install configurations"
+else
+    log "Plasma desktop not detected. Skipping theme setup."
+fi
 
 echo -e "${YELLOW}========================================${NC}"
 echo -e "${GREEN}✓ System setup completed successfully!${NC}"
