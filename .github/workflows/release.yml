@@ -22,6 +22,8 @@ jobs:
       - name: Build
         run: |
           GOOS=linux GOARCH=amd64 go build -v -o build/FedoraInstaller main.go
+      - name: Set executable permissions
+        run: chmod +x build/FedoraInstaller
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -39,6 +41,8 @@ jobs:
         with:
           name: FedoraInstaller-${{ needs.build.outputs.version }}
           path: ./build
+      - name: Set executable permissions
+        run: chmod +x ./build/FedoraInstaller
       - name: Create Release Archive
         run: |
           cd build
