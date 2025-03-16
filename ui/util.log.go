@@ -32,8 +32,6 @@ func CloseLogger() {
 func Log(message string) {
 	if logger != nil {
 		logger.Println(message)
-	} else {
-		fmt.Println("Logger not initialized, message:", message) // Fallback if logger not setup
 	}
 }
 
