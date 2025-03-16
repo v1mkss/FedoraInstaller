@@ -22,11 +22,16 @@ jobs:
       - name: Build
         run: |
           GOOS=linux GOARCH=amd64 go build -v -o build/FedoraInstaller main.go
+      - name: Create archive
+        run: |
+          cd build
+          tar -czvf FedoraInstaller-${{ env.VERSION }}.tar.gz FedoraInstaller assets/
+          cd ..
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: FedoraInstaller-${{ env.VERSION }}
-          path: build/
+          path: build/FedoraInstaller-${{ env.VERSION }}.tar.gz
 
   release:
     needs: build
@@ -38,11 +43,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: FedoraInstaller-${{ needs.build.outputs.version }}
-          path: ./build
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: "v${{ needs.build.outputs.version }}"
           name: "v${{ needs.build.outputs.version }}"
           files: |
-            ./build/FedoraInstaller
+            FedoraInstaller-${{ needs.build.outputs.version }}.tar.gz
