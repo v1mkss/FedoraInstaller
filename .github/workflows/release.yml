@@ -30,6 +30,12 @@ jobs:
       - name: Test
         run: go test -v ./...
 
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: main-build
+          path: ./build/main
+
       - name: Create Release
         uses: "actions/create-release@v1"
         env:
@@ -41,8 +47,14 @@ jobs:
           prerelease: false
           body: ""
 
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: main-build
+          path: ./build
+
       - name: Upload build artifact
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

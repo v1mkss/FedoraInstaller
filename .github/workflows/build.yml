@@ -34,7 +34,7 @@ jobs:
         run: go test -v ./...
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: FedoraInstaller-${{ env.VERSION }}b
           path: build
