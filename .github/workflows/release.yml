@@ -4,6 +4,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ env.VERSION }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Go
@@ -19,34 +21,28 @@ jobs:
         run: echo "VERSION=$(cat version)" >> $GITHUB_ENV
       - name: Build
         run: |
-          go build -v -o build/main .
+          GOOS=linux GOARCH=amd64 go build -v -o build/FedoraInstaller main.go
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: main-build
-          path: ./build/main
-      - name: Create Release
-        id: create_release
-        uses: "actions/create-release@v1"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: "v${{ env.VERSION }}"
-          release_name: "v${{ env.VERSION }}"
-          draft: false
-          prerelease: false
-          body: ""
-      - name: Download Artifact
+          name: FedoraInstaller-${{ env.VERSION }}
+          path: build/
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: main-build
+          name: FedoraInstaller-${{ needs.build.outputs.version }}
           path: ./build
-      - name: Upload build artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/main
-          asset_name: main-${{ env.VERSION }}
-          asset_content_type: application/octet-stream
+          tag_name: "v${{ needs.build.outputs.version }}"
+          name: "v${{ needs.build.outputs.version }}"
+          files: |
+            ./build/FedoraInstaller
