@@ -12,17 +12,14 @@ plasma-systemmonitor
 sddm
 sddm-kcm
 sddm-breeze
-
 # KDE Plasma Configuration
 kde-gtk-config
 plasma-browser-integration
 plasma-firewall
 plasma-nm
 sssd-kcm
-
 # Flatpak integration
 flatpak
 flatpak-kcm
-
 # Additional KDE utilities
 kio-admin

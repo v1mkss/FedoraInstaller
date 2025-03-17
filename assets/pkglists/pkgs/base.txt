@@ -6,30 +6,22 @@ unzip
 wget2-wget
 zip
 openssl
-
 # Package management
 dnf-plugins-core
-
 # Shell
 fish
-
 # Version control
 git
-
 # Documentation
 man-db
-
 # Networking
 netcat
 openssh-clients
-
 # Prompt
 starship
-
 # System tools
 firewall-config
 firewalld
-
 # Compilers and build tools
 gcc
 llvm

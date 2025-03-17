@@ -1,17 +1,14 @@
 # Audio utilities
 alsa-utils
 pipewire-alsa
-
 # Graphics information
 clinfo
 vulkan-tools
-
 # Audio effects and management
 wireplumber
 pipewire-pulseaudio
 pipewire-gstreamer
 pipewire-utils
-
 # GStreamer plugins
 gstreamer1-plugin-dav1d
 gstreamer1-plugin-libav
@@ -19,7 +16,6 @@ gstreamer1-plugin-openh264
 gstreamer1-plugins-bad-free
 gstreamer1-plugins-good
 gstreamer1-plugins-ugly-free
-
 # Mesa drivers
 mesa-va-drivers-freeworld
 mesa-vdpau-drivers-freeworld
