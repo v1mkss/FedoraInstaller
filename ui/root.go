@@ -172,9 +172,10 @@ func showOptionsMenu() {
 		fmt.Println(ansi.Color("2. Install Repositories", "green"))
 		fmt.Println(ansi.Color("3. Install Fish", "green"))
 		fmt.Println(ansi.Color("4. Install Starship", "green"))
+		fmt.Println(ansi.Color("5. Install Fastfetch", "green"))
 
-		fmt.Println(ansi.Color("\n5. Back to Main Menu", "red"))
-		fmt.Print(ansi.Color("Enter your choice (1-5) or 'q' to quit: ", "yellow"))
+		fmt.Println(ansi.Color("\n6. Back to Main Menu", "red"))
+		fmt.Print(ansi.Color("Enter your choice (1-6) or 'q' to quit: ", "yellow"))
 
 		var choiceStr string
 		scanner := bufio.NewScanner(os.Stdin)
@@ -195,7 +196,7 @@ func showOptionsMenu() {
 
 		choice, err := strconv.Atoi(choiceStr)
 		if err != nil {
-			fmt.Println(ansi.Color("Invalid input. Please enter a number (1-5) or 'q'.", "red"))
+			fmt.Println(ansi.Color("Invalid input. Please enter a number (1-6) or 'q'.", "red"))
 			LogError("Invalid options menu input", err) // Log invalid input
 			time.Sleep(1 * time.Second)
 			continue // Back to the options menu loop
@@ -208,16 +209,16 @@ func showOptionsMenu() {
 		case 2:
 			handleInstallAction(install.InstallRepositories, "Installing repositories...")
 			Log("Installing repositories from options menu.") // Log option choice
-
 		case 3:
 			handleInstallAction(configs.InstallFishConfig, "Installing Fish config...")
 			Log("Installing Fish config from options menu.") // Log option choice
-
 		case 4:
 			handleInstallAction(configs.InstallStarshipConfig, "Installing Starship config...")
 			Log("Installing Starship config from options menu.") // Log option choice
-
 		case 5:
+			handleInstallAction(configs.InstallFastfetchConfig, "Installing Fastfetch config...")
+			Log("Installing Fastfetch config from options menu.") // Log option choice
+		case 6:
 			ClearScreen()
 			PrintWelcomeScreen()
 			Log("Returning to main menu from options menu.") // Log menu navigation

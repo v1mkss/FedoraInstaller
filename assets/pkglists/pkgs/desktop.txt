@@ -10,6 +10,7 @@ kwallet
 plasma-desktop
 plasma-systemmonitor
 sddm
+sddm-kcm
 sddm-breeze
 
 # KDE Plasma Configuration

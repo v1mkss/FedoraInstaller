@@ -22,7 +22,6 @@ man-db
 # Networking
 netcat
 openssh-clients
-openssh-server
 
 # Prompt
 starship
