@@ -22,7 +22,7 @@ starship
 # System tools
 firewall-config
 firewalld
-plymouth-system-theme
+plymouth-theme-spinner
 # Compilers and build tools
 gcc
 llvm
