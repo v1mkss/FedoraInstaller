@@ -99,6 +99,11 @@ log "Updating font cache..."
 fc-cache -f -v
 check_error "Failed to update font cache"
 
+# Set plymouth theme
+log "Setting Plymouth theme to bgrt..."
+sudo plymouth-set-default-theme -R bgrt
+check_error "Failed to set plymouth theme"
+
 # Restart Plasma
 log "Restarting Plasma..."
 killall plasmashell
@@ -116,4 +121,5 @@ echo "• Papirus Icon Theme enabled"
 echo "• Cascadia Code font set as default"
 echo "• Font cache updated"
 echo "• Plasma shell restarted"
+echo "• Plymouth theme installed"
 echo -e "${NC}"
