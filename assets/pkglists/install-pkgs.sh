@@ -50,12 +50,12 @@ echo -e "${YELLOW}-----------------------------------${NC}"
 
 # Installing base packages
 log "Installing base packages..."
-if [ -f pkglists/pkgs/base.txt ]; then
+if [ -f ./assets/pkglists/pkgs/base.txt ]; then
     echo -e "${YELLOW}-----------------------------------${NC}"
     echo -e "${CYAN}Base packages:${NC}"
-    cat pkglists/pkgs/base.txt
+    cat ./assets/pkglists/pkgs/base.txt
     echo -e "${YELLOW}-----------------------------------${NC}"
-    dnf install -y $(cat pkglists/pkgs/base.txt)
+    dnf install -y $(cat ./assets/pkglists/pkgs/base.txt)
     check_error "Failed to install base packages"
 else
     echo -e "${RED}WARNING: base.txt not found${NC}"
@@ -63,12 +63,12 @@ fi
 
 # Installing drivers
 log "Installing drivers..."
-if [ -f pkglists/pkgs/drivers.txt ]; then
+if [ -f ./assets/pkglists/pkgs/drivers.txt ]; then
     echo -e "${YELLOW}-----------------------------------${NC}"
     echo -e "${CYAN}Drivers:${NC}"
-    cat pkglists/pkgs/drivers.txt
+    cat ./assets/pkglists/pkgs/drivers.txt
     echo -e "${YELLOW}-----------------------------------${NC}"
-    dnf install -y $(cat pkglists/pkgs/drivers.txt)
+    dnf install -y $(cat ./assets/pkglists/pkgs/drivers.txt)
     check_error "Failed to install drivers"
 else
     echo -e "${RED}WARNING: drivers.txt not found${NC}"
@@ -76,12 +76,12 @@ fi
 
 # Installing desktop environment
 log "Installing desktop environment..."
-if [ -f pkglists/pkgs/desktop.txt ]; then
+if [ -f ./assets/pkglists/pkgs/desktop.txt ]; then
     echo -e "${YELLOW}-----------------------------------${NC}"
     echo -e "${CYAN}Desktop packages:${NC}"
-    cat pkglists/pkgs/desktop.txt
+    cat ./assets/pkglists/pkglists/pkgs/desktop.txt
     echo -e "${YELLOW}-----------------------------------${NC}"
-    dnf install -y $(cat pkglists/pkgs/desktop.txt)
+    dnf install -y $(cat ./assets/pkglists/pkglists/pkgs/desktop.txt)
     check_error "Failed to install desktop packages"
 else
     echo -e "${RED}WARNING: desktop.txt not found${NC}"
