@@ -28,6 +28,12 @@
       "keyColor": "yellow",
     },
     {
+      "type": "packages",
+      "format": "{rpm} (rpm)",
+      "key": " ",
+      "keyColor": "yellow",
+    },
+    {
       "type": "shell",
       "key": " ",
       "keyColor": "yellow",

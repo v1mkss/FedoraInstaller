@@ -87,16 +87,11 @@ else
     echo -e "${RED}WARNING: desktop.txt not found${NC}"
 fi
 
-# Installing browser
-log "Installing Brave browser..."
-if command -v curl &> /dev/null; then
-    echo -e "${YELLOW}-----------------------------------${NC}"
-    curl -fsSL https://dl.brave.com/install.sh | sh
-    check_error "Failed to install Brave browser"
-else
-    echo -e "${RED}ERROR: curl is not installed${NC}"
-    exit 1
-fi
+# Installing Flathub repository
+log "Installing Flathub repository..."
+echo -e "${YELLOW}-----------------------------------${NC}"
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+check_error "Failed to add Flathub repository"
 
 echo -e "${YELLOW}========================================${NC}"
 echo -e "${GREEN}✓ All installations completed successfully!${NC}"
@@ -109,5 +104,4 @@ echo "• Package groups installed"
 echo "• Base packages installed"
 echo "• Drivers installed"
 echo "• Desktop environment installed"
-echo "• Brave browser installed"
 echo -e "${NC}"
